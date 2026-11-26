@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RWA Watch — Tokenized Real World Assets</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header>
+  <h1>RWA Watch</h1>
+  <p class="subtitle">Tokenized Real World Assets — prices, market cap and 24h change, from the CoinMarketCap API.</p>
+  <p><span id="source-badge" class="badge">Loading…</span> <span id="updated"></span></p>
+</header>
+
+<main>
+  <section id="summary" class="cards" aria-label="Summary">
+    <div class="card"><span class="label">Assets shown</span><strong id="count">–</strong></div>
+    <div class="card"><span class="label">Total market cap</span><strong id="total-mcap">–</strong></div>
+    <div class="card"><span class="label">Total 24h volume</span><strong id="total-vol">–</strong></div>
+    <div class="card"><span class="label">Top 24h gainer</span><strong id="top-gainer">–</strong></div>
+  </section>
+
+  <section class="controls">
+    <label>Asset type
+      <select id="type-filter">
+        <option value="">All types</option>
+        <option value="stock">Equities</option>
+        <option value="commodity">Commodities</option>
+        <option value="currency">Currencies</option>
+        <option value="government_security">Government securities</option>
+        <option value="etf">ETFs</option>
+        <option value="real_estate">Real estate</option>
+      </select>
+    </label>
+    <label>Search <input id="search" type="search" placeholder="e.g. gold, treasury…"></label>
+    <button id="refresh" type="button">Refresh</button>
+  </section>
+
+  <p id="note" class="note" hidden></p>
+
+  <section>
+    <h2>Market cap — top 5</h2>
+    <canvas id="chart" width="720" height="220" aria-label="Bar chart of market cap for the top 5 assets"></canvas>
+  </section>
+
+  <section>
+    <h2>All assets</h2>
+    <table id="rwa-table">
+      <thead>
+        <tr><th>#</th><th>Asset</th><th>Type</th><th>Price (USD)</th><th>24h %</th><th>Market cap</th><th>24h volume</th></tr>
+      </thead>
+      <tbody id="tbody"><tr><td colspan="7">Loading…</td></tr></tbody>
+    </table>
+  </section>
+
+  <p class="fineprint">Data: CoinMarketCap API — <code>/v5/real-world-assets/assets/list</code> (RWA list),
+  <code>/v5/real-world-assets/quotes/latest</code> (detail) and <code>/v1/cryptocurrency/quotes/latest</code>
+  (underlying token). When no API key is set, the dashboard shows clearly-labelled sample data, never fake live prices.
+  RWA Watch is an independent hackathon project and is not affiliated with CoinMarketCap.</p>
+</main>
+<script src="/app.js"></script>
+</body>
+</html>
