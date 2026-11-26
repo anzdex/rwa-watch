@@ -93,13 +93,13 @@ DEMO.md                    Screen-recording script
 .env.example               Placeholder only — never put a real key here
 ```
 
-## Submission checklist (what is still missing)
+## Submission checklist
 
-- [x] Registered on DoraHacks (Cortensor #5 also registered; this repo is for Build with CMC)
-- [x] Public GitHub-ready repo (local only — **not pushed yet**; push to github.com/anzdex when ready)
-- [ ] Demo video / screen recording (see `DEMO.md`) or a deployed link
-- [ ] X post with the submission link + video + `#BuildwithCMC`
-- [ ] Live API key in `.env` for the recorded demo (key stays local, never committed)
-- [ ] Submit build on DoraHacks before 10 Dec 2026, 07:00 WIB
+- [x] Registered on DoraHacks (this repo is for Build with CMC)
+- [x] Public GitHub repo: https://github.com/anzdex/rwa-watch
+- [x] Demo video: [demo/rwa-watch-demo.mp4](demo/rwa-watch-demo.mp4) (96 s, sample mode → live mode, plus live API proof)
+- [x] X post with the submission link + `#BuildwithCMC`: https://x.com/Irelandeth3282/status/2125826886966354233
+- [x] Live API key in local `.env` for the recorded demo (key stays local, never committed)
+- [x] Submitted build on DoraHacks: https://dorahacks.io/build/51957 — Under Review (submitted 26 Nov 2026, track Data and Visualisation)
 
 RWA Watch is original work for this hackathon. It is not affiliated with CoinMarketCap.
