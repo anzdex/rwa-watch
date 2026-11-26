@@ -1,1 +1,63 @@
-{"_note":"Sanitized sample of a live CoinMarketCap response. Recorded shape only — no API key, no account data, no timestamps from a real call. Real responses from GET /v5/real-world-assets/assets/list and GET /v1/cryptocurrency/quotes/latest share the same JSON envelope (status + data); the RWA list returns tokenized aggregates (tokenized_market_cap, tokenized_volume_24h) in quote.USD, and the crypto quotes endpoint returns the same quote object for the underlying token.","crypto_quotes_latest_example":{"data":{"BTC":{"id":1,"name":"Bitcoin","quote":{"USD":{"market_cap":1780000000000,"percent_change_24h":1.25,"price":90000.0,"volume_24h":32000000000}},"symbol":"BTC"}},"status":{"credit_count":1,"elapsed":9,"error_code":0,"error_message":null,"timestamp":"2026-11-25T00:00:00.000Z"}},"endpoints_used":["GET /v5/real-world-assets/assets/list","GET /v5/real-world-assets/quotes/latest","GET /v1/cryptocurrency/quotes/latest"],"rwa_assets_list_example":{"data":[{"asset_type":"commodity","name":"Tokenized Gold","quote":{"USD":{"percent_change_24h":0.82,"price":2412.5,"tokenized_market_cap":1850000000,"tokenized_volume_24h":42000000}},"rwa_id":1,"symbol":"XAU"}],"status":{"credit_count":1,"elapsed":12,"error_code":0,"error_message":null,"timestamp":"2026-11-25T00:00:00.000Z"}}}
+{
+  "_note": "REAL response from GET /v5/real-world-assets/assets/list (limit=2), fetched 2026-11-26 with the project's own CMC API key. No key or account data in this file. Note the live shape: data.rwa_assets[], top-level average_tokenized_price / tokenized_market_cap / tokenized_volume_24h, quotes[] array (no percent_change in list).",
+  "_fetched": "2026-11-26T04:51:00Z",
+  "data": {
+    "total_size": 7942,
+    "has_more": true,
+    "rwa_assets": [
+      {
+        "name": "Gold",
+        "symbol": "GOLD",
+        "slug": "gold",
+        "quotes": [
+          {
+            "symbol": "USD",
+            "crypto_id": 2781,
+            "average_tokenized_price": 3589.1921025531838,
+            "tokenized_market_cap": 4399843818.5987015,
+            "tokenized_volume_24h": 509591730.43127215,
+            "last_updated": "2026-11-26T04:50:05.000Z"
+          }
+        ],
+        "rwa_id": 1,
+        "asset_type": "commodity",
+        "rwa_rank": 1,
+        "has_tokens": true,
+        "average_tokenized_price": 3589.1921025531838,
+        "tokenized_market_cap": 4399843818.5987015,
+        "tokenized_volume_24h": 509591730.43127215,
+        "last_updated": "2026-11-26T04:51:11.000Z"
+      },
+      {
+        "name": "Apple Inc.",
+        "symbol": "AAPL",
+        "slug": "apple",
+        "quotes": [
+          {
+            "symbol": "USD",
+            "crypto_id": 2781,
+            "average_tokenized_price": 356.4266757899652,
+            "tokenized_market_cap": 31920794.428526204,
+            "tokenized_volume_24h": 31621226.30758827,
+            "last_updated": "2026-11-26T04:50:05.000Z"
+          }
+        ],
+        "rwa_id": 3,
+        "asset_type": "stock",
+        "rwa_rank": 2,
+        "has_tokens": true,
+        "average_tokenized_price": 356.4266757899652,
+        "tokenized_market_cap": 31920794.428526204,
+        "tokenized_volume_24h": 31621226.30758827,
+        "last_updated": "2026-11-26T04:51:11.000Z"
+      }
+    ]
+  },
+  "status": {
+    "timestamp": "2026-11-26T04:51:46.006Z",
+    "error_code": "0",
+    "error_message": "",
+    "elapsed": 67,
+    "credit_count": 1
+  }
+}

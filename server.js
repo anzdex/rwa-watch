@@ -79,17 +79,20 @@ async function cmc(pathname, params) {
   return body;
 }
 
-/** Normalise one RWA asset (live CMC shape) to the shape the frontend uses. */
+/** Normalise one RWA asset (live CMC shape) to the shape the frontend uses.
+ *  Live shape (verified 26 Nov 2026, /v5/real-world-assets/assets/list):
+ *  top-level average_tokenized_price / tokenized_market_cap /
+ *  tokenized_volume_24h, plus a quotes[] array (no percent_change in list). */
 function normaliseRwa(a) {
-  const q = a.quote && a.quote.USD ? a.quote.USD : {};
+  const q = (Array.isArray(a.quotes) && a.quotes[0]) || (a.quote && a.quote.USD) || {};
   return {
     rwa_id: a.rwa_id ?? a.id ?? null,
     name: a.name ?? 'Unknown asset',
     symbol: a.symbol ?? '',
     asset_type: a.asset_type ?? a.type ?? 'unknown',
-    price: q.price ?? null,
-    market_cap: q.tokenized_market_cap ?? q.market_cap ?? null,
-    volume_24h: q.tokenized_volume_24h ?? q.volume_24h ?? null,
+    price: a.average_tokenized_price ?? q.average_tokenized_price ?? q.price ?? null,
+    market_cap: a.tokenized_market_cap ?? q.tokenized_market_cap ?? q.market_cap ?? null,
+    volume_24h: a.tokenized_volume_24h ?? q.tokenized_volume_24h ?? q.volume_24h ?? null,
     percent_change_24h: q.percent_change_24h ?? null,
     issuer: a.issuer_name ?? a.issuer ?? null,
   };
@@ -150,7 +153,9 @@ const server = http.createServer(async (req, res) => {
         const params = { limit, sort: 'rwa_rank', sort_dir: 'asc' };
         if (assetType) params.asset_type = assetType;
         const live = await cmc('/v5/real-world-assets/assets/list', params);
-        const data = Array.isArray(live.data) ? live.data.map(normaliseRwa) : [];
+        // Live shape: data is an object { total_size, has_more, rwa_assets: [...] }
+        const raw = Array.isArray(live.data) ? live.data : (live.data && live.data.rwa_assets) || [];
+        const data = raw.map(normaliseRwa);
         return sendJson(res, 200, { source: 'live', data, total: data.length });
       } catch (err) {
         // Live call failed (bad key, quota, network): say so, fall back to

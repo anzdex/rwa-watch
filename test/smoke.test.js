@@ -5,7 +5,9 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 
 test('server serves sample RWA data without an API key', async () => {
-  delete process.env.CMC_API_KEY;
+  // Empty string (not delete): server.js loads .env only for keys absent
+  // from process.env, so '' keeps it in sample mode even with a real .env.
+  process.env.CMC_API_KEY = '';
   process.env.PORT = '3456';
   const server = require('../server.js');
   // server.js starts listening on require; give it a moment.

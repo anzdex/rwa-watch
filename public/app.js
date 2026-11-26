@@ -46,7 +46,7 @@ function render() {
   $('count').textContent = rows.length;
   $('total-mcap').textContent = fmtMoney(rows.reduce((s, a) => s + (a.market_cap || 0), 0));
   $('total-vol').textContent = fmtMoney(rows.reduce((s, a) => s + (a.volume_24h || 0), 0));
-  const gainer = [...rows].sort((a, b) => (b.percent_change_24h || 0) - (a.percent_change_24h || 0))[0];
+  const gainer = [...rows].filter((a) => a.percent_change_24h !== null && a.percent_change_24h !== undefined).sort((a, b) => (b.percent_change_24h || 0) - (a.percent_change_24h || 0))[0];
   $('top-gainer').textContent = gainer ? `${gainer.name} (${gainer.percent_change_24h >= 0 ? '+' : ''}${(gainer.percent_change_24h || 0).toFixed(2)}%)` : '–';
   drawChart(rows);
 }
